@@ -15,48 +15,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.monmo.model;
+package org.monmo.main;
 
-import org.monmo.interfaces.SocketAdapter;
+import org.monmo.model.CPU;
+import org.monmo.model.ComputerFacade;
+import org.monmo.model.HardDrive;
+import org.monmo.model.Memory;
+
 
 /**
  *
  * @author nv3ob61
  */
-//Class adapter
-public class SocketAdapterImplement extends Socket implements SocketAdapter {
+public class Main {
 
-  @Override
-  public Volt get240V() {
-    return getVolt();
+  /**
+   * @param args the command line arguments
+   */
+  public static void main(String[] args) {
+
+    CPU processor = new CPU();
+    Memory ram = new Memory();
+    HardDrive hd = new HardDrive();
+    
+    ComputerFacade cf = new ComputerFacade(processor, ram, hd);
+    
+    //start the computer
+    cf.start();
   }
-
-  @Override
-  public Volt get120V() {
-    Volt v = getVolt();
-    return convertVolt(v, 10);
-  }
-
-  @Override
-  public Volt get12V() {
-    Volt v = getVolt();
-    return convertVolt(v, 100);
-  }
-
-  @Override
-  public Volt get3V() {
-    Volt v = getVolt();
-    return convertVolt(v, 150);
-  }
-
-  @Override
-  public Volt get1V() {
-    Volt v = getVolt();
-    return convertVolt(v, 200);
-  }
-
-  public static final Volt convertVolt(Volt v, int i) {
-    return new Volt(v.getVolts() / i);
-  }
-
+  
 }

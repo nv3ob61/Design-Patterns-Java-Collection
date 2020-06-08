@@ -17,46 +17,27 @@
  */
 package org.monmo.model;
 
-import org.monmo.interfaces.SocketAdapter;
-
 /**
  *
  * @author nv3ob61
  */
-//Class adapter
-public class SocketAdapterImplement extends Socket implements SocketAdapter {
+public class ComputerFacade {
+  
+  private CPU processor;
+  private Memory ram;
+  private HardDrive hd;
 
-  @Override
-  public Volt get240V() {
-    return getVolt();
+  public ComputerFacade(CPU processor, Memory ram, HardDrive hd) {
+    this.processor = processor;
+    this.ram = ram;
+    this.hd = hd;
   }
-
-  @Override
-  public Volt get120V() {
-    Volt v = getVolt();
-    return convertVolt(v, 10);
+  
+  //start the computer
+  public void start(){
+    processor.freeze();
+    ram.load(132, hd.read(3465, 89));
+    processor.jump(132);
+    processor.execute();
   }
-
-  @Override
-  public Volt get12V() {
-    Volt v = getVolt();
-    return convertVolt(v, 100);
-  }
-
-  @Override
-  public Volt get3V() {
-    Volt v = getVolt();
-    return convertVolt(v, 150);
-  }
-
-  @Override
-  public Volt get1V() {
-    Volt v = getVolt();
-    return convertVolt(v, 200);
-  }
-
-  public static final Volt convertVolt(Volt v, int i) {
-    return new Volt(v.getVolts() / i);
-  }
-
 }

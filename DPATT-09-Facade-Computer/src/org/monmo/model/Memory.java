@@ -17,46 +17,13 @@
  */
 package org.monmo.model;
 
-import org.monmo.interfaces.SocketAdapter;
-
 /**
  *
  * @author nv3ob61
  */
-//Class adapter
-public class SocketAdapterImplement extends Socket implements SocketAdapter {
-
-  @Override
-  public Volt get240V() {
-    return getVolt();
+public class Memory {
+  
+  public void load(long pos, byte [] data){
+    System.out.println("Added item to memory: " + pos);
   }
-
-  @Override
-  public Volt get120V() {
-    Volt v = getVolt();
-    return convertVolt(v, 10);
-  }
-
-  @Override
-  public Volt get12V() {
-    Volt v = getVolt();
-    return convertVolt(v, 100);
-  }
-
-  @Override
-  public Volt get3V() {
-    Volt v = getVolt();
-    return convertVolt(v, 150);
-  }
-
-  @Override
-  public Volt get1V() {
-    Volt v = getVolt();
-    return convertVolt(v, 200);
-  }
-
-  public static final Volt convertVolt(Volt v, int i) {
-    return new Volt(v.getVolts() / i);
-  }
-
 }
